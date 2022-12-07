@@ -4,7 +4,6 @@
 """
 
 import random
-import math
 __author__ = "8070193"
 
 
@@ -28,6 +27,8 @@ def input_func():
     Returns:
         integer: user_input to be used in other functions
     """
+
+    # ask for a user_input until an integer is entered
     while True:
         user_input = input("Bitte Matrix Dimension angeben: ")
         try:
@@ -49,9 +50,12 @@ def create_matrix(size: int):
     Returns:
         nested list: matrix of numbers
     """
+
+    # defines my values for the matrix generation
     matrix_dim = list(range(1, 10))
     matrix_data = []
 
+    # create a nested list of random values inside the definitionrange
     for i in range(size):  # noqa: W0612
         matrix_data.append([random.choice(matrix_dim) for x in range(size)])
 
@@ -69,9 +73,19 @@ def find_way(matrix: list):
     Args:
         matrix (list): list of lists to display our matrix
     """
-    start_pos = matrix[0][0]
-    end_pos = matrix[-1][-1]
-    
+    # create a dict with key value pairs {key = index, value = node_weigth}
+    positions = {}
+    for element in matrix:
+        first_ind = matrix.index(element)
+
+        for coord in element:
+            second_ind = element.index(coord)
+
+            index = (first_ind, second_ind)
+            positions[f'{index}'] =  (matrix[first_ind][second_ind])
+
+            print(positions[f'{index}'])
+
 
 
 
