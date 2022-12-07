@@ -56,6 +56,8 @@ def create_matrix(size):
     for i in range(size):   # noqa: W0612
         matrix_data.append([random.choice(matrix_dim) for x in range(size)])
 
+    return matrix_data
+
 
 
 #TODO: find the cheapest way trough the matrix
@@ -68,4 +70,4 @@ def output_func(output):
     pass
 
 
-create_matrix(3)
+matrix = create_matrix(3)
