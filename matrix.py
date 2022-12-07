@@ -4,11 +4,11 @@
 """
 
 import random
-
+import math
 __author__ = "8070193"
 
 
-def error_func(input_value):
+def error_func(input_value: any):
     """
     prints out an error if the user_input is invalid
 
@@ -39,7 +39,7 @@ def input_func():
             continue
 
 
-def create_matrix(size):
+def create_matrix(size: int):
     """
     creates a nested list of the given size
 
@@ -59,11 +59,25 @@ def create_matrix(size):
 
 
 # TODO: find the cheapest way trough the matrix
-def find_way(matrix):
-    pass
+#       for each field find adjacent fields and
+#       find out which one is cheaper
+#       replace used fields with inf
+def find_way(matrix: list):
+    """
+    finds the cheapest way trough a matrix
+
+    Args:
+        matrix (list): list of lists to display our matrix
+    """
+    start_pos = matrix[0][0]
+    end_pos = matrix[-1][-1]
+    
 
 
-def output_func(output, field):
+
+
+
+def output_func(output: str, field: list):
     """
     prints out the perfect way trough the matrix
 
@@ -81,4 +95,5 @@ def output_func(output, field):
 
 
 
-matrix = create_matrix(3)
+grid = create_matrix(3)
+find_way(grid)
