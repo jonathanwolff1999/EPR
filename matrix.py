@@ -4,6 +4,7 @@
 """
 
 import random
+import math
 __author__ = "8070193"
 
 
@@ -32,7 +33,7 @@ def input_func():
     while True:
         user_input = input("Bitte Matrix Dimension angeben: ")
         try:
-            int(user_input)
+            user_input = int(user_input)
             return user_input
 
         except ValueError:
@@ -62,11 +63,7 @@ def create_matrix(size: int):
     return matrix_data
 
 
-# TODO: find the cheapest way trough the matrix
-#       for each field find adjacent fields and
-#       find out which one is cheaper
-#       replace used fields with inf
-def find_way(matrix: list):
+def create_dict(matrix: list):
     """
     finds the cheapest way trough a matrix
 
@@ -83,10 +80,109 @@ def find_way(matrix: list):
 
             index = (first_ind, second_ind)
             positions[f'{index}'] =  (matrix[first_ind][second_ind])
+    return positions
 
-            print(positions[f'{index}'])
+
+def get_pos(matrix: list, positions: dict, current_coords: tuple, size: int):
+    """
+    gets the current position and all adjacent positions
+
+    Args:
+        matrix (list): our matrix to step trough
+        positions (dict): dictionary of all fields and their values
+        current_coords (tuple): current coordinates
+        size (int): size of our matrix
+
+    Returns:
+        _type_: _description_
+    """
+    end = (len(grid)-1, len(grid)- 1)
+    path = []
+    cost = 0
+    adjacent = []
+    north_value,west_value,south_value,east_value = 1000, 1000, 1000, 1000
+
+    if current_coords == end:
+        return path
+    else:
+
+        
+        current_value = matrix[current_coords[0]][current_coords[1]]
+        current_value = positions[f'{current_coords}']
+        path.append(current_coords)
 
 
+
+        if current_coords[0] != 0:
+            north = ((current_coords[0] - 1), (current_coords[1]))
+            north_value = positions[f'{north}']
+            print(f"norden = {north}, value = {north_value}")
+            adjacent.append(north_value)
+
+        if current_coords[1] != 0:
+            west = ((current_coords[0]), (current_coords[1] - 1))
+            west_value = positions[f'{west}']
+            print(f"westen = {west}, value = {west_value}")
+            adjacent.append(west_value)
+
+        if current_coords[0] < 3:
+            south = ((current_coords[0] + 1), (current_coords[1]))
+            south_value = positions[f'{south}']
+            print(f"süden = {south}, value = {south_value}")
+            adjacent.append(south_value)
+
+        for idx,elem in enumerate(grid):
+            if idx > len(grid):
+                east = ((current_coords[0]), (current_coords[1] + 1))
+                east_value = positions[f'{east}']
+                print(f"osten = {east}, value = {east_value}")
+                adjacent.append(east_value)
+        print(f"hurensohnliste: {adjacent}")
+        cheapest = find_cheapest(adjacent)
+
+
+
+        blocker = -1
+        int(blocker)
+
+
+        if cheapest == north_value:
+            positions.update({(f"{current_coords}"): blocker})
+            cost += current_value
+            current_coords = north
+            get_pos(grid, positions, current_coords, size)
+
+        if cheapest == west_value:
+            positions.update({(f"{current_coords}"): blocker})
+            cost += current_value
+            current_coords = west
+            get_pos(grid, positions, current_coords, size)
+
+        if cheapest == south_value:
+            positions.update({(f"{current_coords}"): blocker})
+            cost += current_value
+            current_coords = south
+            get_pos(grid, positions, current_coords, size)
+
+        if cheapest == east_value:
+            positions.update({(f"{current_coords}"): blocker})
+            cost += current_value
+            current_coords = east
+            get_pos(grid, positions, current_coords, size)
+
+
+def find_cheapest(adjacent: list):
+    """
+    quick function to find the cheapest adjacent field
+
+    Returns:
+        integer: value of the cheapest adjacent field
+    """
+    print(adjacent)
+    for elem in adjacent:
+        int(elem)
+    cheapest = min(adjacent)
+    return cheapest
 
 
 
@@ -108,6 +204,16 @@ def output_func(output: str, field: list):
     print(f"Der Kürzeste Weg lautet wie folgt: {output}")
 
 
+dimension = input_func()
+grid = create_matrix(dimension)
+for j in grid:
+    for i in j:
+        print(i, end="  ")
+    print("")
 
-grid = create_matrix(3)
-find_way(grid)
+print("")
+print("")
+
+position_list = create_dict(grid)
+final_path = get_pos(grid, position_list, (0,0), dimension)
+print(final_path)
