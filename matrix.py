@@ -21,7 +21,6 @@ def error_func(input_value):
     print("")
 
 
-
 def input_func():
     """
     accepts an integer input and blocks all other inputtypes
@@ -53,19 +52,18 @@ def create_matrix(size):
     matrix_dim = list(range(1, 10))
     matrix_data = []
 
-    for i in range(size):   # noqa: W0612
+    for i in range(size):  # noqa: W0612
         matrix_data.append([random.choice(matrix_dim) for x in range(size)])
 
     return matrix_data
 
 
-
-#TODO: find the cheapest way trough the matrix
+# TODO: find the cheapest way trough the matrix
 def find_way(matrix):
     pass
 
 
-#TODO: output the best way trough the matrix
+# TODO: output the best way trough the matrix
 def output_func(output):
     pass
 
