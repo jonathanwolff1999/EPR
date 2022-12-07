@@ -63,9 +63,22 @@ def find_way(matrix):
     pass
 
 
-# TODO: output the best way trough the matrix
-def output_func(output):
-    pass
+def output_func(output, field):
+    """
+    prints out the perfect way trough the matrix
+
+    Args:
+        output (string): string of all used fields in perfect path
+        field (list): list of lists used to display the matrix
+    """
+
+
+    for element in field:
+        print(element)
+
+    print("")
+    print(f"Der Kürzeste Weg lautet wie folgt: {output}")
+
 
 
 matrix = create_matrix(3)
