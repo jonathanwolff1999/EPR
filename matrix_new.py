@@ -28,8 +28,6 @@ def create_matrix(size: int):
     for _ in range(size):
         matrix_data.append([random.choice(matrix_dim) for _ in range(size)])
 
-    # for item in matrix_data:
-    #     print()
     return matrix_data
 
 
@@ -51,7 +49,7 @@ def calc_cost(matrix, coord_x=0, coord_y=0, cost=0, iteration=0, indices=None):
     if coord_x == coord_y and coord_x == size - 1:
         indices.append((size - 1, size - 1))
         print(f"Iterationen: {iteration}")
-        print(f"Indizes: {indices}")
+        print(f"Pfad: {indices}")
         return cost
 
     if iteration >= size**2:
@@ -67,8 +65,9 @@ def calc_cost(matrix, coord_x=0, coord_y=0, cost=0, iteration=0, indices=None):
     cost_to_move_right = (
         matrix[coord_x][coord_y + 1] if coord_y < size - 1 else math.inf
     )
-    cost_to_move_down = matrix[coord_x + 1][coord_y] if coord_x < size - 1 else math.inf
-
+    cost_to_move_down = (
+        matrix[coord_x + 1][coord_y] if coord_x < size - 1 else math.inf
+    )
     # compare costs and move to the cheapest way
     if cost_to_move_down < cost_to_move_right:
         return calc_cost(
@@ -89,12 +88,30 @@ def calc_cost(matrix, coord_x=0, coord_y=0, cost=0, iteration=0, indices=None):
             indices + [(coord_x, coord_y)],
         )
 
-field = create_matrix(int(input("Bitte Dimension angeben: ")))
+def main():
+    """
+    main function to run the program
+    """
 
-for ele in field:
-    print("(", end=" ")
-    for pos in ele:
-        print(pos, end=" ")
+    # creates a matrix of the given size
+    field = create_matrix(int(input("Bitte Dimension angeben: ")))
 
-    print(")")
-calc_cost(field)
+    # prints the matrix
+    for ele in field:
+        print("(", end=" ")
+        for pos in ele:
+            print(pos, end=" ")
+
+        print(")")
+
+    # calculates the cheapest way trough the matrix
+    costs = calc_cost(field)
+    print(f"Kosten: {costs}")
+
+
+# testcases for each function
+if __name__ == "__main__":
+    # testcases for create_matrix()
+
+    # testcases for calc_cost()
+    main()
